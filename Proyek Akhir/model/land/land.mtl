@@ -1,0 +1,14 @@
+# Blender MTL File: 'land.blend'
+# Material Count: 1
+
+newmtl Grass
+Ns 1.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.129412 0.733333 0.298039
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd model/land/grass.jpg
+map_Ks model/land/grass.jpg

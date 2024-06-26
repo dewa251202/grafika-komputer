@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<title>Midpoint Line</title>
+	<style>
+	:root {
+		font-family: Helvetica;
+	}
+	
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	
+	body > * {
+		margin: 0.5em;
+	}
+	
+	h2 {
+		margin: 0;
+	}
+	
+	canvas {
+		border: 1px solid black;
+	}
+	
+	.d-none {
+		display: none;
+	}
+	</style>
+</head>
+
+<body>
+	<div><h2>Midpoint Line</h2></div>
+	<canvas id="gl-canvas" width="400" height="400"> </canvas>
+	<button id="compass">Display 16 compass directions</button>
+	<button id="random">Display 5 random lines</button>
+	<div>Mode: <span id="mode">Compass</span></div>
+	<div id="lines" class="d-none"></div>
+</body>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec2 aPosition;
+
+void main(){
+	gl_PointSize = 1.0;
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+precision mediump float;
+
+out vec4 fColor;
+
+void main(){
+    fColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</script>
+
+<script src="../Common/initShaders.js"></script>
+<script src="../Common/MVnew.js"></script>
+<script src="uts-2.js"></script>
+
+</html>

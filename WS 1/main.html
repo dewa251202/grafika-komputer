@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Worksheet 1 - SHDB</title>
+		<script src="js/jquery-3.6.0.js"></script>
+		<script src="js/popper.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<link href="css/bootstrap.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div><canvas id="gl-canvas" width="512" height="512"></canvas></div>
+		<div id="menu">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<div class="container-fluid">
+					<div class="navbar-brand">Menu</div>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-nav-dark-dropdown" aria-controls="navbar-nav-dark-dropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbar-nav-dark-dropdown">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" role="button" id="object-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">Object</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="object-dropdown-button">
+									<li value="0" class="dropdown-item">Line</li>
+									<li value="1" class="dropdown-item active">Triangle</li>
+									<li value="2" class="dropdown-item">Rectangle</li>
+									<li value="3" class="dropdown-item">Polygon</li>
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" role="button" id="color-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">Color</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="color-dropdown-button">
+									<li value="0" class="dropdown-item active">Red</li>
+									<li value="1" class="dropdown-item">Blue</li>
+									<li value="2" class="dropdown-item">Green</li>
+									<li value="3" class="dropdown-item">Pink</li>
+									<li value="4" class="dropdown-item">Orange</li>
+									<li value="5" class="dropdown-item">Yellow</li>
+									<li value="6" class="dropdown-item">Purple</li>
+									<li value="7" class="dropdown-item">Brown</li>
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" role="button" id="line-width-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">Line Width</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="line-width-dropdown-button">
+									<li value="0" class="dropdown-item">Small</li>
+									<li value="1" class="dropdown-item active">Medium</li>
+									<li value="2" class="dropdown-item">Large</li>
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" role="button" id="animation-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">Animation</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="animation-dropdown-button">
+									<li value="0" class="dropdown-item">Rotation</li>
+									<li value="1" class="dropdown-item">Translation</li>
+									<li value="2" class="dropdown-item">Scale</li>
+								</ul>
+							</li>
+							<input id="clear-canvas" class="nav-item btn btn-warning" type="reset" value="Clear Canvas">
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div id="control" class="bg-dark">
+				<div class="navbar-brand">Control</div>
+				<div>
+					<div>Animation speed</div>
+					<input id="slider" type="range" min="1" max="100" value="50" disabled>
+				</div>
+				<input id="rotation-dir" class="btn btn-primary" type="reset" value="Invert Rotation Direction" disabled></button>
+				<input id="end-polygon" class="btn btn-primary" type="reset" value="End Polygon" disabled></button>
+			</div>
+		</div>
+
+		<script id="vertex-shader" type="x-shader/x-vertex">
+			#version 300 es
+			in vec4 aPosition;
+			in vec4 aColor;
+
+			out vec4 vColor;
+			uniform float uTheta;
+			uniform vec2 uDelta;
+			uniform float uAlpha;
+
+			void
+			main()
+			{
+				float tmpx = uAlpha * aPosition.x;
+				float tmpy = uAlpha * aPosition.y;
+				
+				float s = sin(uTheta);
+				float c = cos(uTheta);
+
+				gl_Position.x = -s * tmpy + c * tmpx + uDelta.x;
+				gl_Position.y =  s * tmpx + c * tmpy + uDelta.y; 
+				gl_Position.z = 0.0;
+				gl_Position.w = 1.0;
+				
+				vColor = aColor;
+			}
+		</script>
+
+		<script id="fragment-shader" type="x-shader/x-fragment">
+			#version 300 es
+			precision mediump float;
+
+			in vec4 vColor;
+			out vec4 fColor;
+
+			void
+			main()
+			{
+				fColor = vColor;
+			}
+		</script>
+
+		<script src="../Common/initShaders.js"></script>
+		<script src="../Common/MVnew.js"></script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

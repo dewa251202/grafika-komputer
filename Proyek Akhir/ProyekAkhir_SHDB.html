@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="description" content="Models: PointLight, Land, Swing, Horse, Boat, Pine, Emoji">
+	<title>Proyek Akhir</title>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/initShaders.js"></script>
+	<script type="text/javascript" src="js/loadTexture.js"></script>
+	<script type="text/javascript" src="js/m4.js"></script>
+	<script type="text/javascript" src="js/MtlLoader.js"></script>
+	<script type="text/javascript" src="js/ObjLoader.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/Model/BaseModel.js"></script>
+	<script type="text/javascript" src="js/Model/PointLight.js"></script>
+	<script type="text/javascript" src="js/Model/Land.js"></script>
+	<script type="text/javascript" src="js/Model/Horse.js"></script>
+	<script type="text/javascript" src="js/Model/Swing.js"></script>
+	<script type="text/javascript" src="js/Model/Pine.js"></script>
+	<script type="text/javascript" src="js/Model/Boat.js"></script>
+	<script type="text/javascript" src="js/Model/Emoji.js"></script>
+	<script type="text/javascript" src="js/ProyekAkhir_SHDB.js"></script>
+	<link rel="icon" type="image/png" sizes="16x16" href="shdb.png">
+	<link rel="stylesheet" href="css/bootstrap.min.css"></style>
+	<link rel="stylesheet" href="css/ProyekAkhir_SHDB.css"></style>
+</head>
+<body>
+	<canvas width="512" height="512" id="gl-canvas">WebGL 2 unavailable</canvas>
+	<button id="menu-button" class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu">Menu</button>
+	<div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="menu-label">
+		<div class="offcanvas-header">
+			<h3 id="menu-label" class="offcanvas-title"><strong>Menu</strong></h3>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<ul class="nav nav-tabs" id="menu-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active" id="object-tab" data-bs-toggle="tab" data-bs-target="#object-tab-pane" type="button" role="tab" aria-controls="object-tab-pane" aria-selected="true">Object</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="light-tab" data-bs-toggle="tab" data-bs-target="#light-tab-pane" type="button" role="tab" aria-controls="light-tab-pane" aria-selected="false">Light</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="camera-tab" data-bs-toggle="tab" data-bs-target="#camera-tab-pane" type="button" role="tab" aria-controls="camera-tab-pane" aria-selected="false">Camera</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other-tab-pane" type="button" role="tab" aria-controls="other-tab-pane" aria-selected="false">Other</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="menu-tab-content">
+				<div class="tab-pane fade show active" id="object-tab-pane" role="tabpanel" aria-labelledby="object-tab" tabindex="0">
+					<ul class="nav nav-tabs" id="object-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="horse-tab" data-bs-toggle="tab" data-bs-target="#horse-tab-pane" type="button" role="tab" aria-controls="horse-tab-pane" aria-selected="true">Horse</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="swing-tab" data-bs-toggle="tab" data-bs-target="#swing-tab-pane" type="button" role="tab" aria-controls="swing-tab-pane" aria-selected="false">Swing</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="boat-tab" data-bs-toggle="tab" data-bs-target="#boat-tab-pane" type="button" role="tab" aria-controls="boat-tab-pane" aria-selected="false">Boat</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pine-tab" data-bs-toggle="tab" data-bs-target="#pine-tab-pane" type="button" role="tab" aria-controls="pine-tab-pane" aria-selected="false">Pine</button>
+						</li>
+					</ul>
+					<div class="tab-content" id="object-tab-content">
+						<div class="tab-pane fade show active" id="horse-tab-pane" role="tabpanel" aria-labelledby="horse-tab">
+							<div class="menu-item disabled-in-demo">
+								<label class="header" for="horse-body-translation-x">Move horse forward/backward</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Backward</span><span>Forward</span></div>
+									<input type="range" class="form-range" id="horse-body-translation-x" autocomplete="off" min="0" max="30" value="0" step="0.5">
+								</div>
+								<label class="header" for="horse-neck-rotation-x">Shake neck to the left/right</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+									<input type="range" class="form-range" id="horse-neck-rotation-x" autocomplete="off" min="-45" max="45" value="0">
+								</div>
+								<label class="header" for="horse-head-rotation-y">Shake head to the left/right</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+									<input type="range" class="form-range" id="horse-head-rotation-y" autocomplete="off" min="-30" max="30" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="swing-tab-pane" role="tabpanel" aria-labelledby="swing-tab">
+							<div class="menu-item disabled-in-demo">
+								<label class="header" for="swing-frame-rotation-y">Rotate swing horizontally</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>0&#176;</span><span>360&#176;</span></div>
+									<input type="range" class="form-range" id="swing-frame-rotation-y" autocomplete="off" min="0" max="360" value="0">
+								</div>
+								<label class="header" for="swing-left-rope-rotation-x">Swing left rope forward/backward</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Backward</span><span>Forward</span></div>
+									<input type="range" class="form-range" id="swing-left-rope-rotation-x" autocomplete="off" min="-60" max="60" value="0">
+								</div>
+								<label class="header" for="swing-right-rope-translation-x">Slide right rope to the left/right</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+									<input type="range" class="form-range" id="swing-right-rope-translation-x" autocomplete="off" min="-20" max="20" value="0">
+								</div>
+								<label class="header" for="swing-right-hoop-rotation-y">Rotate right hoop horizontally</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>0&#176;</span><span>360&#176;</span></div>
+									<input type="range" class="form-range" id="swing-right-hoop-rotation-y" autocomplete="off" min="0" max="360" value="0">
+								</div>
+								<label class="header" for="swing-left-back-frame-rotation-x">Open/close left back frame</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Close</span><span>Open</span></div>
+									<input type="range" class="form-range" id="swing-left-back-frame-rotation-x" autocomplete="off" min="-30" max="60" value="0">
+								</div>
+								<label class="header" for="swing-left-front-frame-rotation-x">Open/close left front frame</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Close</span><span>Open</span></div>
+									<input type="range" class="form-range" id="swing-left-front-frame-rotation-x" autocomplete="off" min="-30" max="60" value="-30">
+								</div>
+								<label class="header" for="swing-right-back-frame-rotation-x">Open/close right back frame</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Close</span><span>Open</span></div>
+									<input type="range" class="form-range" id="swing-right-back-frame-rotation-x" autocomplete="off" min="-30" max="60" value="0">
+								</div>
+								<label class="header" for="swing-right-front-frame-rotation-x">Open/close right front frame</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Close</span><span>Open</span></div>
+									<input type="range" class="form-range" id="swing-right-front-frame-rotation-x" autocomplete="off" min="-30" max="60" value="-30">
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="boat-tab-pane" role="tabpanel" aria-labelledby="boat-tab">
+							<div class="menu-item disabled-in-demo">
+								<label class="header" for="boat-rotation-y">Boat rotation</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>0&#176;</span><span>360&#176;</span></div>
+									<input type="range" class="form-range" id="boat-rotation-y" autocomplete="off" min="0" max="360" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pine-tab-pane" role="tabpanel" aria-labelledby="boat-tab">
+							<div class="menu-item disabled-in-demo">
+								<label for="pine-translation-x" class="form-label header">Move left/right</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+									<input type="range" class="form-range" id="pine-translation-x" autocomplete="off" min="-100" max="100" value="50">
+								</div>
+								<label for="pine-translation-z" class="form-label header">Move forward/backward</label>
+								<div>
+									<div class="d-flex justify-content-between"><span>Backward</span><span>Forward</span></div>
+									<input type="range" class="form-range" id="pine-translation-z" autocomplete="off" min="-100" max="100" value="-50">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="light-tab-pane" role="tabpanel" aria-labelledby="light-tab">
+					<div id="point-light-position" class="menu-item">
+						<div class="header">Point light's position</div>
+						<label for="point-light-x" class="form-label fw-semibold mb-0">Move left/right</label>
+						<div>
+							<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+							<input type="range" class="form-range" id="point-light-x" autocomplete="off" min="-100" max="100" value="0">
+						</div>
+						<label for="point-light-y" class="form-label fw-semibold mb-0">Move up/down</label>
+						<div>
+							<div class="d-flex justify-content-between"><span>Down</span><span>Up</span></div>
+							<input type="range" class="form-range" id="point-light-y" autocomplete="off" min="2" max="100" value="100">
+						</div>
+						<label for="point-light-z" class="form-label fw-semibold mb-0">Move forward/backward</label>
+						<div>
+							<div class="d-flex justify-content-between"><span>Backward</span><span>Forward</span></div>
+							<input type="range" class="form-range" id="point-light-z" autocomplete="off" min="-100" max="100" value="0">
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="camera-tab-pane" role="tabpanel" aria-labelledby="camera-tab">
+					<div class="menu-item">
+						<div class="header">Camera position</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="camera-position" id="general-camera" autocomplete="off" value="general" checked>
+							<label class="form-check-label" for="general-camera">General</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="camera-position" id="horse-camera" autocomplete="off" value="horse">
+							<label class="form-check-label" for="horse-camera">Horse's eye</label>
+						</div>
+						<div id="general-camera-position" class="menu-item">
+							<div class="header">General camera's position</div>
+							<label for="general-camera-translation-x" class="form-label fw-semibold mb-0">Move left/right</label>
+							<div>
+								<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+								<input type="range" class="form-range" id="general-camera-translation-x" autocomplete="off" min="-100" max="100" value="0">
+							</div>
+							<label for="general-camera-translation-y" class="form-label fw-semibold mb-0">Move up/down</label>
+							<div>
+								<div class="d-flex justify-content-between"><span>Down</span><span>Up</span></div>
+								<input type="range" class="form-range" id="general-camera-translation-y" autocomplete="off" min="2" max="100" value="51">
+							</div>
+							<label for="general-camera-translation-z" class="form-label fw-semibold mb-0">Move forward/backward</label>
+							<div>
+								<div class="d-flex justify-content-between"><span>Backward</span><span>Forward</span></div>
+								<input type="range" class="form-range" id="general-camera-translation-z" autocomplete="off" min="-100" max="100" value="-100">
+							</div>
+						</div>
+						<div id="general-camera-rotation" class="menu-item">
+							<div class="header">General camera's rotation</div>
+							<label for="general-camera-rotation-x" class="form-label fw-semibold mb-0">Tilt up/down</label>
+							<div>
+								<div class="d-flex justify-content-between"><span>Down</span><span>Up</span></div>
+								<input type="range" class="form-range" id="general-camera-rotation-x" autocomplete="off" min="-75" max="75" value="0">
+							</div>
+							<label for="general-camera-rotation-y" class="form-label fw-semibold mb-0">Turn left/right</label>
+							<div>
+								<div class="d-flex justify-content-between"><span>Left</span><span>Right</span></div>
+								<input type="range" class="form-range" id="general-camera-rotation-y" autocomplete="off" min="-180" max="180" value="0">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="other-tab-pane" role="tabpanel" aria-labelledby="other-tab">
+					<div class="menu-item">
+						<div class="header">Object mode</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="object-mode" id="wireframe" autocomplete="off" value="wireframe">
+							<label class="form-check-label" for="wireframe">Wireframe</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="object-mode" id="shading" autocomplete="off" value="shading" checked>
+							<label class="form-check-label" for="shading">Shading</label>
+						</div>
+						<div class="header">Display mode</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="display-mode" id="interactive" autocomplete="off" value="interactive">
+							<label class="form-check-label" for="interactive">Interactive</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="display-mode" id="demo" autocomplete="off" value="demo" checked>
+							<label class="form-check-label" for="demo">Demo</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

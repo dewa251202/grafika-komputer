@@ -1,0 +1,24 @@
+html {
+	font-family: Helvetica;
+}
+
+body, #model-menu, #limb-menu, #element-menu {
+	display: flex;
+}
+
+#other-menu {
+	margin-top: 10px;
+}
+
+#element-menu > div {
+	flex-grow: 1;
+}
+
+#horse-menu, #swing-menu {
+	margin-left: 10px;
+}
+
+#other-menu > div > div, #horse-menu > div > div > div, #swing-menu div {
+	border: 1px solid black;
+	padding: 5px;
+}

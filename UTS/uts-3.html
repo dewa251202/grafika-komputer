@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Animating H2O</title>
+
+	<script id="vertex-shader" type="x-shader/x-vertex">
+	#version 300 es
+
+	in vec4 vPosition;
+	in vec4 a_color;
+
+	uniform mat4 m_matrix;
+	uniform mat4 v_matrix;
+	uniform mat4 p_matrix;
+
+	out vec4 v_color;
+
+	void main(){
+	    // Multiply the position by the matrix.
+	    gl_Position = p_matrix * v_matrix * m_matrix * vPosition;
+		v_color = a_color;
+	}
+	</script>
+
+	<script id="fragment-shader" type="x-shader/x-fragment">
+	#version 300 es
+
+	precision mediump float;
+
+	in vec4 v_color;
+	out vec4 FragColor;
+
+	void main(){
+		FragColor = v_color;
+	}
+	</script>
+
+	<script type="text/javascript" src="../Common/initShaders.js"></script>
+	<script type="text/javascript" src="../Common/MVnew.js"></script>
+	<script type="text/javascript" src="uts-3.js"></script>
+	
+	<style>
+	:root {
+		font-family: Helvetica; 
+	}
+	
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	body > * {
+		margin: 0.5em;
+	}
+	
+	h2 {
+		margin: 0;
+	}
+	
+	button {
+		width: 150px;
+		height: 50px;
+		margin: 0 0.5em;
+	}
+	</style>
+</head>
+
+<body>
+	<div><h2>Animating H2O</h2></div>
+	<div>
+		<canvas id="gl-canvas" width="512" height="512">
+		Oops ... your browser doesn't support the HTML5 canvas element
+		</canvas>
+	</div>
+	<div>
+		<button id="default">Viewer/Default</button>
+		<button id="oksigen">View Oksigen</button>
+		<button id="hidrogen-1">View Hidrogen-1</button>
+		<button id="hidrogen-2">View Hidrogen-2</button>
+	</div>
+	<div>Camera position: <span id="cam-pos">Default</span></div>
+</body>
+</html>

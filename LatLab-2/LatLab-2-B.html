@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../Common/layout.css">
+<title>Animating ID</title>
+
+<!-- Modification from animate-GL.html/JS -->
+<!-- Perform animation of letter I and D using translation, rotation and scaling -->
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+#version 300 es
+
+in vec4 vPosition;
+in vec4 a_color;
+
+uniform mat4 u_matrix;
+
+out vec4 v_color;
+
+void
+main()
+{
+  // Multiply the position by the matrix.
+  gl_Position = u_matrix * vPosition;
+
+	v_color = a_color;
+}
+
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+#version 300 es
+
+precision mediump float;
+
+in vec4 v_color;
+
+out vec4 FragColor;
+
+void
+main()
+{
+    FragColor = v_color;
+}
+</script>
+
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MVnew.js"></script>
+<script type="text/javascript" src="LatLab-2-B.js"></script>
+</head>
+
+<body> 
+<div class="header">
+  <h2>Animating ID</h2>
+</div>
+
+<div class="row">
+  <div class="center">
+    <canvas id="gl-canvas" width="800" height="600">
+    Oops ... your browser doesn't support the HTML5 canvas element
+  </canvas>
+</div>
+</div>
+
+<div class="footer">
+  <h2>Grafika Komputer - Fasilkom UI</h2>
+</div>
+</body>
+</html>

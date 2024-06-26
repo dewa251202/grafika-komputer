@@ -1,0 +1,29 @@
+html {
+	font-family: Helvetica;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	margin: 0;
+}
+
+#menu-button {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+}
+
+.menu-item > .header {
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+.form-check {
+	display: flex;
+	align-items: center;
+}
+
+.form-check-label {
+	margin-left: 10px;
+}
